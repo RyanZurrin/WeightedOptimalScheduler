@@ -23,18 +23,18 @@ Finds a optimal schedule when given a list of task times and the  associated pro
     cout << scheduler.toString() << endl;
 ```
 ### will Output the Following ###
-> Optimal Scheduler:
-Max Profit: 26
-Schedule:
-Basketball          : 11:30 AM to  2:00 PM, earning: $11
-Job                2:  3:00 PM to  5:00 PM, earning: $5
-netflix and chill   :  5:00 PM to  8:00 PM, earning: $10
-
-
-Optimal Scheduler:
-Max Profit: 33
-Schedule:
-tutoring            :  5:45 AM to  9:00 AM, earning: $7
-Basketball          : 11:30 AM to  2:00 PM, earning: $11
-Job                3:  3:00 PM to  5:00 PM, earning: $5
-netflix and chill   :  5:00 PM to  8:00 PM, earning: $10
+> Optimal Scheduler:<br/>
+Max Profit: 26<br/>
+Schedule:<br/>
+Basketball          : 11:30 AM to  2:00 PM, earning: $11<br/>
+Job                2:  3:00 PM to  5:00 PM, earning: $5<br/>
+netflix and chill   :  5:00 PM to  8:00 PM, earning: $10<br/>
+<br/>
+<br/>
+Optimal Scheduler:<br/>
+Max Profit: 33<br/>
+Schedule:<br/>
+tutoring            :  5:45 AM to  9:00 AM, earning: $7<br/>
+Basketball          : 11:30 AM to  2:00 PM, earning: $11<br/>
+Job                3:  3:00 PM to  5:00 PM, earning: $5<br/>
+netflix and chill   :  5:00 PM to  8:00 PM, earning: $10<br/>
