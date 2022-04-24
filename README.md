@@ -28,9 +28,7 @@ Max Profit: 26<br/>
 Schedule:<br/>
 Basketball          : 11:30 AM to  2:00 PM, earning: $11<br/>
 Job                2:  3:00 PM to  5:00 PM, earning: $5<br/>
-netflix and chill   :  5:00 PM to  8:00 PM, earning: $10<br/>
-<br/>
-<br/>
+netflix and chill   :  5:00 PM to  8:00 PM, earning: $10<br/><br/>
 Optimal Scheduler:<br/>
 Max Profit: 33<br/>
 Schedule:<br/>
