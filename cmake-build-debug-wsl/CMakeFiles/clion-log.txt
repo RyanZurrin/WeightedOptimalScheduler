@@ -1,0 +1,4 @@
+C:\Windows\system32\wsl.exe --distribution Ubuntu --exec /bin/bash -c "export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd /home/ryazur/src/Scheduler/cmake-build-debug-wsl && /usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G 'CodeBlocks - Unix Makefiles' -S /home/ryazur/src/Scheduler -B /home/ryazur/src/Scheduler/cmake-build-debug-wsl; exitcode=$?; sleep 0.001; (exit $exitcode)"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/ryazur/src/Scheduler/cmake-build-debug-wsl

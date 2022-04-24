@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ryazur/src/Scheduler/OptimalScheduler.h
+vector
+-
+Task.h
+/home/ryazur/src/Scheduler/Task.h
+
+/home/ryazur/src/Scheduler/Task.h
+Time.h
+/home/ryazur/src/Scheduler/Time.h
+
+/home/ryazur/src/Scheduler/Time.h
+iostream
+-
+sstream
+-
+iomanip
+-
+
+/home/ryazur/src/Scheduler/main.cpp
+iostream
+-
+OptimalScheduler.h
+/home/ryazur/src/Scheduler/OptimalScheduler.h
+
