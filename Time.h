@@ -47,7 +47,8 @@ public:
 
     [[nodiscard]] string toString() const {
         stringstream ss;
-        ss << setfill('0') << setw(2) << hour << ":" << setw(2) << minute;
+        // convert to 12 hour time
+        ss << to12Hour();
         return ss.str();
     }
 
@@ -97,6 +98,12 @@ public:
         } else {
             return false;
         }
+    }
+
+    // overload the << operator
+    friend ostream& operator<<(ostream& os, const Time& t) {
+        os << t.toString();
+        return os;
     }
 };
 

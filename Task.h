@@ -1,3 +1,5 @@
+#include <utility>
+
 //
 // Created by ryanz on 4/24/2022.
 //
@@ -12,20 +14,20 @@ public:
     Time start;
     Time end;
     int profit;
-    Task(int h1, int m1, int h2, int m2, int p, string task = "None") : start(h1, m1), end(h2, m2), profit(p), task(task) {
+    Task(int h1, int m1, int h2, int m2, int p, string task = "None") : start(h1, m1), end(h2, m2), profit(p), task(std::move(task)) {
         // validate
         if (h1 < 0 || h1 > 23 || m1 < 0 || m1 > 59 || h2 < 0 || h2 > 23 || m2 < 0 || m2 > 59 || p < 0) {
             throw invalid_argument("invalid time");
         }
     }
-    Task(Time start, Time end, int profit, string name = "None") : start(start), end(end), profit(profit), task(name) {
+    Task(Time start, Time end, int profit, string name = "None") : start(start), end(end), profit(profit), task(std::move(name)) {
         if (start.hour < 0 || start.hour > 23 || start.minute < 0 ||
             start.minute > 59 || end.hour < 0 || end.hour > 23 ||
             end.minute < 0 || end.minute > 59 || profit < 0) {
             throw invalid_argument("invalid task");
         }
     }
-    string toString() {
+    string toString() const {
         stringstream ss;
         if  (task == "None") {
             ss << "Task: " << start.toString() << " - " << end.toString() << " Profit: " << profit;
@@ -57,6 +59,11 @@ public:
             return start > rhs.start;
         }
         return profit > rhs.profit;
+    }
+    // overload the << operator
+    friend ostream& operator<<(ostream& os, const Task& t) {
+        os << t.toString();
+        return os;
     }
 };
 // to sort tasks in increasing order by starting time
