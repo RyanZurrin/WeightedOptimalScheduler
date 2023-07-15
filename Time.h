@@ -7,16 +7,26 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <regex>
 
 using namespace std;
 
 class Time {
-public:
     int hour;
     int minute;
+public:
+    int getHour() const {
+        return hour;
+    }
+
+    int getMinute() const {
+        return minute;
+    }
+
+
     // convert from 24 hour time to 12 hour time
-    [[nodiscard]] string to12Hour() const {
-        stringstream ss;
+    std::string to12Hour() const {
+        std::stringstream ss;
         if (hour == 0) {
             ss << "12";
         } else if (hour > 12) {
@@ -37,19 +47,42 @@ public:
         return !(*this == t);
     }
 
+    Time() : hour(0), minute(0) {}
 
     Time(int h, int m) : hour(h), minute(m){
         // validate
         if (h < 0 || h > 23 || m < 0 || m > 59) {
-            throw invalid_argument("invalid time");
+            throw std::invalid_argument("invalid time");
         }
     }
 
-    [[nodiscard]] string toString() const {
-        stringstream ss;
+    std::string toString() const {
+        std::stringstream ss;
         // convert to 12 hour time
         ss << to12Hour();
         return ss.str();
+    }
+
+    static Time parse(const std::string &timeStr) {
+        std::smatch match;
+        std::regex timePattern("(\\d{1,2}):(\\d{2})(am|pm|AM|PM)");
+
+        if (std::regex_search(timeStr, match, timePattern)) {
+            int hour = std::stoi(match.str(1));
+            int minute = std::stoi(match.str(2));
+            std::string meridiem = match.str(3);
+
+            // Convert to 24-hour time
+            if (meridiem == "pm" || meridiem == "PM") {
+                hour = (hour % 12) + 12;
+            } else { // AM case
+                hour %= 12;
+            }
+
+            return Time(hour, minute);
+        } else {
+            throw std::invalid_argument("Failed to parse time string");
+        }
     }
 
 // time comparator >
@@ -109,10 +142,10 @@ public:
 
 // sort time by ending time
 bool timeComparator(const Time& lhs, const Time& rhs)  {
-    if (lhs.hour == rhs.hour) {
-        return lhs.minute < rhs.minute;
+    if (lhs.getHour() == rhs.getHour()) {
+        return lhs.getMinute() < rhs.getMinute();
     } else {
-        return lhs.hour < rhs.hour;
+        return lhs.getHour() < rhs.getHour();
     }
 }
 

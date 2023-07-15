@@ -1,3 +1,0 @@
-//wsl$/Ubuntu/home/ryazur/src/Scheduler/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/cmTC_6ee8b.dir
-//wsl$/Ubuntu/home/ryazur/src/Scheduler/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/edit_cache.dir
-//wsl$/Ubuntu/home/ryazur/src/Scheduler/cmake-build-debug/CMakeFiles/CMakeTmp/CMakeFiles/rebuild_cache.dir

@@ -6,7 +6,8 @@
 
 #ifndef SCHEDULER_TASK_H
 #define SCHEDULER_TASK_H
-#import "Time.h"
+#include "Time.h"
+
 
 class Task {
 public:
@@ -14,21 +15,43 @@ public:
     Time start;
     Time end;
     int profit;
-    Task(int h1, int m1, int h2, int m2, int p, string task = "None") : start(h1, m1), end(h2, m2), profit(p), task(std::move(task)) {
+
+    Task(int h1, int m1, int h2, int m2, int p, std::string task = "None")
+            : start(h1, m1), end(h2, m2), profit(p), task(std::move(task)) {
         // validate
-        if (h1 < 0 || h1 > 23 || m1 < 0 || m1 > 59 || h2 < 0 || h2 > 23 || m2 < 0 || m2 > 59 || p < 0) {
-            throw invalid_argument("invalid time");
+        if (p < 0) {
+            throw std::invalid_argument("invalid profit");
         }
     }
-    Task(Time start, Time end, int profit, string name = "None") : start(start), end(end), profit(profit), task(std::move(name)) {
-        if (start.hour < 0 || start.hour > 23 || start.minute < 0 ||
-            start.minute > 59 || end.hour < 0 || end.hour > 23 ||
-            end.minute < 0 || end.minute > 59 || profit < 0) {
-            throw invalid_argument("invalid task");
+
+    Task(Time start, Time end, int profit, std::string name = "None")
+            : start(start), end(end), profit(profit), task(std::move(name)) {
+        // validate
+        if (profit < 0) {
+            throw std::invalid_argument("invalid profit");
         }
     }
-    string toString() const {
-        stringstream ss;
+
+    Task(const std::string& startStr, const std::string& endStr, int p, std::string task = "None")
+            : profit(p), task(std::move(task)) {
+        // Now parse the times:
+        try {
+            start = Time::parse(startStr);
+            end = Time::parse(endStr);
+        } catch (const std::invalid_argument& e) {
+            std::cerr << "Error parsing time: " << e.what() << std::endl;
+            throw;  // Re-throw the exception.
+        }
+
+        // validate
+        if (p < 0) {
+            throw std::invalid_argument("invalid profit");
+        }
+    }
+
+
+    std::string toString() const {
+        std::stringstream ss;
         if  (task == "None") {
             ss << "Task: " << start.toString() << " - " << end.toString() << " Profit: " << profit;
         } else {
@@ -36,9 +59,11 @@ public:
         }
         return ss.str();
     }
+
     bool operator>(const Task& rhs) const {
         if (profit == rhs.profit) {
-            return start > rhs.start;
+            return start.getHour() > rhs.start.getHour()
+                   || (start.getHour() == rhs.start.getHour() && start.getMinute() > rhs.start.getMinute());
         }
         return profit > rhs.profit;
     }
@@ -49,30 +74,22 @@ public:
         return profit < rhs.profit;
     }
     bool operator>=(const Task& rhs) const {
-        return profit >= rhs.profit && start >= rhs.start && end >= rhs.end;
+        return !(*this < rhs);
     }
+
     bool operator<=(const Task& rhs) const {
-        return profit <= rhs.profit && start <= rhs.start && end <= rhs.end;
+        return !(*this > rhs);
     }
-    bool taskComparator(const Task& rhs) const {
-        if (profit == rhs.profit) {
-            return start > rhs.start;
-        }
-        return profit > rhs.profit;
-    }
+
     // overload the << operator
-    friend ostream& operator<<(ostream& os, const Task& t) {
+    friend std::ostream& operator<<(std::ostream& os, const Task& t) {
         os << t.toString();
         return os;
     }
 };
 // to sort tasks in increasing order by starting time
 bool taskComparator(const Task& lhs, const Task& rhs) {
-    if (lhs.start.hour == rhs.start.hour) {
-        return lhs.start.minute < rhs.start.minute;
-    } else {
-        return lhs.start.hour < rhs.start.hour;
-    }
+    return lhs.end < rhs.end;
 }
 
 
